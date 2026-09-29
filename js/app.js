@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentNodes = {};
   let currentFlowId = 'control_garra'; // Valor por defecto
 
-  // Modal Lógica
+  // Modal LÃ³gica
   const btnFullCode = document.getElementById('btn-full-code');
   const fullCodeModal = document.getElementById('full-code-modal');
   const closeModal = document.getElementById('close-modal');
@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     btnFullCode.onclick = () => {
       const data = FLOW_DATA[currentFlowId];
       if (data) {
-        modalTitle.textContent = `Código Completo: ${data.title}`;
-        modalDesc.textContent = data.desc.replace(/👈.*/g, ''); // Quita la instrucción de clic
-        modalCode.innerHTML = highlightSyntax(data.fullCode || '// Código completo no disponible');
+        modalTitle.textContent = `CÃ³digo Completo: ${data.title}`;
+        modalDesc.textContent = data.desc.replace(/ð.*/g, ''); // Quita la instrucciÃ³n de clic
+        modalCode.innerHTML = highlightSyntax(data.fullCode || '// CÃ³digo completo no disponible');
         fullCodeModal.style.display = 'flex';
       }
     };
@@ -70,10 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
   btnZoomOut.onclick = () => editor.zoom_out();
   document.getElementById('zoom-home').onclick = () => {
     editor.zoom_reset();
-    // Animación suave no nativa, pero al menos reposicionamos:
-    editor.canvas_x = 0;
-    editor.canvas_y = 0;
-    editor.precanvas.style.transform = `translate(${editor.canvas_x}px, ${editor.canvas_y}px) scale(${editor.zoom})`;
+    if (window.innerWidth <= 768) {
+        editor.zoom = 0.5;
+        editor.canvas_x = 0;
+        editor.canvas_y = -100;
+    } else {
+        editor.canvas_x = 0;
+        editor.canvas_y = 0;
+    }
+    if (editor.precanvas) editor.precanvas.style.transform = 	ranslate(px, px) scale();
   };
 
   editor.on('nodeSelected', (id) => {
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentNodes = {};
     hideExplanation();
 
-    // Resetear cámara para que no se quede viendo al vacío si el usuario estaba muy a la derecha
+    // Resetear cÃ¡mara para que no se quede viendo al vacÃ­o si el usuario estaba muy a la derecha
     editor.zoom_reset();
     editor.canvas_x = 0;
     editor.canvas_y = 0;
@@ -102,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = FLOW_DATA[flowId];
     if (!data) return;
 
-    // Actualizar la explicación general
+    // Actualizar la explicaciÃ³n general
     document.getElementById('general-title').textContent = data.title || 'Explora el Diagrama';
     document.getElementById('general-desc').textContent = data.desc || 'Selecciona un bloque...';
 
@@ -114,12 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
       let outputs = 1;
       
       if (n.type === 'input') { inputs = 0; outputs = 1; }
-      if (n.type === 'logic') { inputs = 1; outputs = 2; } // Salida 1 (Sí), Salida 2 (No)
+      if (n.type === 'logic') { inputs = 1; outputs = 2; } // Salida 1 (SÃ­), Salida 2 (No)
       if (n.type === 'action') { inputs = 1; outputs = 1; }
 
       const html = `
         <div class="df-node">
-          <div class="df-header type-${n.type}">${n.type === 'input' ? '▶ Entrada' : n.type === 'logic' ? '◆ Lógica' : '● Acción'}</div>
+          <div class="df-header type-${n.type}">${n.type === 'input' ? 'â¶ Entrada' : n.type === 'logic' ? 'â LÃ³gica' : 'â AcciÃ³n'}</div>
           <div class="df-body">
             ${n.name}
           </div>
@@ -141,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       editor.addConnection(fromId, toId, outPort, inPort);
     });
 
-    // Auto-seleccionar el primer nodo para que el usuario vea de inmediato cómo funciona
+    // Auto-seleccionar el primer nodo para que el usuario vea de inmediato cÃ³mo funciona
     if (firstNodeId) {
       setTimeout(() => {
         showExplanation(currentNodes[firstNodeId]);
@@ -159,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
     detailView.classList.add('active-anim');
     
     if (node.type === 'input') { nodeType.textContent = 'Estado Inicial / Sensor'; nodeType.style.color = '#bc8cff'; nodeType.style.borderColor = 'rgba(188, 140, 255, 0.3)'; nodeType.style.background = 'rgba(188, 140, 255, 0.1)'; }
-    if (node.type === 'logic') { nodeType.textContent = 'Condición / Decisión'; nodeType.style.color = '#ff7b72'; nodeType.style.borderColor = 'rgba(255, 123, 114, 0.3)'; nodeType.style.background = 'rgba(255, 123, 114, 0.1)'; }
-    if (node.type === 'action') { nodeType.textContent = 'Acción de Motores'; nodeType.style.color = '#58a6ff'; nodeType.style.borderColor = 'rgba(88, 166, 255, 0.3)'; nodeType.style.background = 'rgba(88, 166, 255, 0.1)'; }
+    if (node.type === 'logic') { nodeType.textContent = 'CondiciÃ³n / DecisiÃ³n'; nodeType.style.color = '#ff7b72'; nodeType.style.borderColor = 'rgba(255, 123, 114, 0.3)'; nodeType.style.background = 'rgba(255, 123, 114, 0.1)'; }
+    if (node.type === 'action') { nodeType.textContent = 'AcciÃ³n de Motores'; nodeType.style.color = '#58a6ff'; nodeType.style.borderColor = 'rgba(88, 166, 255, 0.3)'; nodeType.style.background = 'rgba(88, 166, 255, 0.1)'; }
 
     nodeTitle.textContent = node.data.title;
     nodeDesc.textContent = node.data.desc;
