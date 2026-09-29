@@ -25,7 +25,10 @@ body {
   background: var(--bg-app);
   color: var(--text-main);
   font-family: var(--font-sans);
-  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -507,8 +510,8 @@ body {
   .app-header {
     height: auto;
     flex-direction: column;
-    padding: 10px 15px;
-    gap: 12px;
+    padding: 8px 10px;
+    gap: 8px;
   }
   
   .brand {
@@ -516,11 +519,16 @@ body {
     justify-content: center;
   }
   
+  .brand-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
   .brand-text .main-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   .brand-text .ujap-subtitle {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
   }
 
   .algorithm-tabs {
@@ -533,7 +541,7 @@ body {
   .tab-btn {
     white-space: nowrap;
     padding: 6px 12px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   
   /* --- NUEVO LAYOUT: Pantalla Dividida (Split Screen) --- */
@@ -543,28 +551,51 @@ body {
   }
   
   .flow-section {
-    flex: 1;
-    min-height: 40vh; /* Garantiza buen espacio para el diagrama */
+    flex: 1; /* Toma el espacio restante */
+    min-height: 0; /* Evita desbordamientos */
+    position: relative;
+  }
+  
+  /* Arreglar la barra de controles flotante */
+  .controls-bar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    top: auto;
+    left: auto;
+    width: auto;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+  }
+  .control-hint {
+    display: none; /* Ocultar texto en móvil */
+  }
+  .zoom-controls {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin: 0;
   }
   
   .explanation-panel,
-  .explanation-panel.collapsed { /* Forzamos a que no importe el estado colapsado por JS */
+  .explanation-panel.collapsed {
     position: relative;
     left: auto;
     bottom: auto;
     top: auto;
     right: auto;
     width: 100%;
-    flex: 0 0 45vh; /* Toma el 45% inferior de la pantalla fijo */
+    flex: 0 0 45%; /* Toma exactamente 45% del espacio del layout */
     max-width: none;
     z-index: 10;
     box-shadow: none;
     border-left: none;
     border-top: 2px solid var(--border-color);
-    transform: none !important; /* Anula deslizamientos */
+    transform: none !important; 
   }
   
-  /* El interior siempre visible */
   .explanation-panel .panel-inner,
   .explanation-panel.collapsed .panel-inner {
     width: 100% !important;
@@ -577,15 +608,13 @@ body {
   
   .panel-content {
     flex: 1;
-    overflow-y: auto; /* Permite scroll si la explicacion es muy larga */
+    overflow-y: auto; 
   }
   
-  /* Ocultar el botón de colapsar en móviles, ya no se necesita */
   .toggle-panel-btn {
     display: none !important;
   }
   
-  /* Modal responsive (Código completo) */
   .modal-content {
     width: 95%;
     height: 90vh;
