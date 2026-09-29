@@ -175,15 +175,15 @@ body {
 .drawflow .drawflow-node .input { left: -18px; background: #fff; width: 14px; height: 14px; border: 2px solid var(--bg-app); border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
 .drawflow .drawflow-node .output { right: -6px; background: var(--accent-blue); width: 14px; height: 14px; border: 2px solid var(--bg-app); position: relative; border-radius: 50%; box-shadow: 0 0 10px rgba(88, 166, 255, 0.4); }
 
-/* Etiquetas para salidas múltiples (Lógica) */
+/* Etiquetas para salidas mÃºltiples (LÃ³gica) */
 .drawflow .drawflow-node .outputs .output_1:nth-last-child(2)::before {
-  content: "Sí"; position: absolute; right: 20px; top: -2px; font-size: 0.7rem; color: var(--accent-green); font-weight: bold; background: rgba(13,17,23,0.8); padding: 2px 6px; border-radius: 4px; backdrop-filter: blur(4px);
+  content: "SÃ­"; position: absolute; right: 20px; top: -2px; font-size: 0.7rem; color: var(--accent-green); font-weight: bold; background: rgba(13,17,23,0.8); padding: 2px 6px; border-radius: 4px; backdrop-filter: blur(4px);
 }
 .drawflow .drawflow-node .outputs .output_2::before {
   content: "No"; position: absolute; right: 20px; top: -2px; font-size: 0.7rem; color: var(--accent-red); font-weight: bold; background: rgba(13,17,23,0.8); padding: 2px 6px; border-radius: 4px; backdrop-filter: blur(4px);
 }
 
-/* Animación de Flujo de Datos */
+/* AnimaciÃ³n de Flujo de Datos */
 @keyframes flow-animation {
   from { stroke-dashoffset: 16; }
   to { stroke-dashoffset: 0; }
@@ -393,7 +393,7 @@ body {
 .syn-string { color: var(--accent-green); }
 .syn-comment { color: #6e7681; font-style: italic; }
 
-/* Bot�n Ver C�digo Completo */
+/* Botón Ver Código Completo */
 .btn-full-code {
   background: var(--accent-blue);
   color: #fff;
@@ -536,7 +536,7 @@ body {
     font-size: 0.85rem;
   }
   
-  /* Panel Lateral superpuesto tipo Drawer */
+  /* Panel Lateral superpuesto tipo Drawer Inferior (Bottom Sheet) */
   .main-layout {
     position: relative;
     overflow: hidden;
@@ -544,19 +544,22 @@ body {
   
   .explanation-panel {
     position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 85%;
-    max-width: 350px;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 55%; /* 55% de la pantalla para buena lectura */
+    max-width: none;
     z-index: 100;
-    box-shadow: -5px 0 30px rgba(0,0,0,0.6);
-    border-left: 1px solid var(--border-color);
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.6);
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    transform: translateY(0);
   }
   
   .explanation-panel.collapsed {
-    width: 85%;
-    transform: translateX(100%);
+    width: 100%;
+    transform: translateY(100%);
   }
   
   .explanation-panel.collapsed .panel-inner {
@@ -565,28 +568,58 @@ body {
     pointer-events: auto;
   }
   
-  /* Bot�n m�s grande para touch */
+  /* Botón más grande para touch */
   .toggle-panel-btn {
-    width: 36px;
-    height: 56px;
-    left: -36px;
+    width: 60px;
+    height: 30px;
+    left: 50%;
+    top: -30px;
+    margin-left: -30px;
     font-size: 1rem;
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px 8px 0 0;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
-    border-right: none;
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: none;
   }
   
+  /* Hacemos que la flecha gire dinámicamente */
+  .toggle-panel-btn::before {
+    content: "▶";
+    transform: rotate(90deg); /* Apunta abajo por defecto (cuando está abierto) */
+    transition: transform 0.3s;
+  }
+  
+  .explanation-panel.collapsed .toggle-panel-btn::before {
+    transform: rotate(-90deg); /* Apunta arriba cuando está colapsado */
+  }
+
+  /* Ocultamos el texto original del botón porque usamos ::before */
+  .toggle-panel-btn {
+    color: transparent;
+  }
+  .toggle-panel-btn::before {
+    color: var(--text-main);
+  }
+  .toggle-panel-btn:hover::before {
+    color: #fff;
+  }
+
   .explanation-panel.collapsed .toggle-panel-btn {
-    left: -36px;
-    transform: translateY(-50%) rotate(0deg); /* No rotar en m�vil cuando colapsa para que siempre se vea la flecha correcta */
-    border-radius: 8px 0 0 8px;
+    left: 50%;
+    top: -30px;
+    margin-left: -30px;
+    border-radius: 8px 8px 0 0;
     border: 1px solid var(--border-color);
-    border-right: none;
+    border-bottom: none;
+    transform: none;
   }
 
   .explanation-panel:not(.collapsed) .toggle-panel-btn {
-    transform: translateY(-50%) rotate(180deg);
+    transform: none;
   }
   
   /* Modal responsive */
