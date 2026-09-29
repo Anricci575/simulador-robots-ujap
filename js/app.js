@@ -71,9 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('zoom-home').onclick = () => {
     editor.zoom_reset();
     if (window.innerWidth <= 768) {
-        editor.zoom = 0.5;
+        editor.zoom = 0.65;
         editor.canvas_x = 0;
-        editor.canvas_y = -100;
+        editor.canvas_y = -180;
     } else {
         editor.canvas_x = 0;
         editor.canvas_y = 0;

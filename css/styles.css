@@ -245,88 +245,75 @@ body {
 }
 
 /* Explanation Panel */
-.explanation-panel {
-  width: 450px;
-  flex: 0 0 450px;
-  background: var(--bg-panel);
-  border-left: 1px solid var(--border-color);
-  position: relative;
-  transition: all 0.3s ease;
-}
-.explanation-panel.collapsed {
-  width: 0px;
-  flex: 0 0 0px;
-  border-left: none;
-}
 
-.panel-inner {
-  width: 450px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
-  overflow: hidden; /* Esto asegura que el contenido desaparezca limpio */
-}
-
-.explanation-panel.collapsed .panel-inner {
-  width: 0px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.toggle-panel-btn {
-  position: absolute;
-  top: 50%;
-  left: -24px;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 48px;
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-right: none;
-  border-radius: 6px 0 0 6px;
-  color: var(--text-muted);
-  cursor: pointer;
-  z-index: 100;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-}
-.toggle-panel-btn:hover {
-  color: #fff;
-  background: var(--border-hover);
-}
-.explanation-panel.collapsed .toggle-panel-btn {
-  left: -24px; /* Debe mantenerse en -24px, no -32px, porque el panel ahora es width 0 */
-  border-right: 1px solid var(--border-color);
-  border-radius: 6px;
-  transform: translateY(-50%) rotate(180deg);
-}
-
-.panel-header {
-  height: 48px;
-  background: #0d1117;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  gap: 12px;
-}
-
-.mac-dots { display: flex; gap: 6px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
-
-.panel-title {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-}
-
+  .explanation-panel {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    top: auto;
+    right: auto;
+    width: 100%;
+    flex: none !important;
+    height: 45vh; /* Ocupa el 45% */
+    max-width: none;
+    z-index: 10;
+    box-shadow: none;
+    border-left: none;
+    border-top: 2px solid var(--border-color);
+    transform: none !important; 
+    transition: height 0.3s ease;
+  }
+  
+  .explanation-panel.collapsed {
+    height: 0px !important;
+    border-top: none;
+  }
+  
+  .explanation-panel .panel-inner {
+    width: 100% !important;
+    height: 100%;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .explanation-panel.collapsed .panel-inner {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  
+  /* Toggle button */
+  .toggle-panel-btn {
+    display: flex !important;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    margin-left: -30px;
+    width: 60px;
+    height: 30px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+    z-index: 20;
+    transform: none !important;
+    cursor: pointer;
+  }
+  
+  .toggle-panel-btn::before {
+    content: "▼";
+    font-size: 14px;
+    color: var(--text-main);
+  }
+  
+  .explanation-panel.collapsed .toggle-panel-btn::before {
+    content: "▲";
+  }
 .panel-content {
   padding: 32px 24px;
   overflow-y: auto;
@@ -544,19 +531,17 @@ body {
     font-size: 0.8rem;
   }
   
-  /* --- NUEVO LAYOUT: Pantalla Dividida (Split Screen) --- */
   .main-layout {
     flex-direction: column;
     overflow: hidden;
   }
   
   .flow-section {
-    flex: 1; /* Toma el espacio restante */
-    min-height: 0; /* Evita desbordamientos */
+    flex: 1; 
+    min-height: 0; 
     position: relative;
   }
   
-  /* Arreglar la barra de controles flotante */
   .controls-bar {
     position: absolute;
     bottom: 10px;
@@ -570,7 +555,7 @@ body {
     z-index: 10;
   }
   .control-hint {
-    display: none; /* Ocultar texto en móvil */
+    display: none; 
   }
   .zoom-controls {
     background: var(--bg-panel);
@@ -579,38 +564,45 @@ body {
     margin: 0;
   }
   
-  .explanation-panel,
-  .explanation-panel.collapsed {
+  .explanation-panel {
     position: relative;
-    left: auto;
-    bottom: auto;
-    top: auto;
-    right: auto;
+    left: auto; bottom: auto; top: auto; right: auto;
     width: 100%;
-    flex: 0 0 45%; /* Toma exactamente 45% del espacio del layout */
+    flex: none !important;
+    height: 45vh; 
     max-width: none;
     z-index: 10;
     box-shadow: none;
     border-left: none;
     border-top: 2px solid var(--border-color);
     transform: none !important; 
+    transition: height 0.3s ease;
   }
   
-  .explanation-panel .panel-inner,
-  .explanation-panel.collapsed .panel-inner {
+  .explanation-panel.collapsed {
+    height: 0px !important;
+    border-top: none;
+  }
+  
+  .explanation-panel .panel-inner {
     width: 100% !important;
     height: 100%;
     opacity: 1 !important;
     pointer-events: auto !important;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .explanation-panel.collapsed .panel-inner {
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   
   .panel-content {
     flex: 1;
     overflow-y: auto; 
   }
-  
   
   .toggle-panel-btn {
     display: flex !important;
@@ -628,31 +620,19 @@ body {
     align-items: center;
     color: transparent;
     z-index: 20;
-    transform: none;
+    transform: none !important;
+    cursor: pointer;
   }
+  
   .toggle-panel-btn::before {
     content: "▼";
     font-size: 14px;
     color: var(--text-main);
   }
+  
   .explanation-panel.collapsed .toggle-panel-btn::before {
     content: "▲";
   }
-  
-  .explanation-panel {
-    transition: flex 0.3s ease;
-  }
-  
-  /* When collapsed, take almost no space */
-  .explanation-panel.collapsed {
-    flex: 0 0 0px !important;
-    border-top: none;
-  }
-  .explanation-panel.collapsed .panel-inner {
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
   
   .modal-content {
     width: 95%;
