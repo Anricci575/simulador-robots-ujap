@@ -129,6 +129,20 @@ body {
 }
 #drawflow:active { cursor: grabbing; }
 
+.author-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 5;
+  letter-spacing: 0.4px;
+  user-select: none;
+  font-family: var(--font-sans);
+}
+
 .controls-bar {
   position: absolute;
   top: 16px;
