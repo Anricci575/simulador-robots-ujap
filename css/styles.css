@@ -536,93 +536,56 @@ body {
     font-size: 0.85rem;
   }
   
-  /* Panel Lateral superpuesto tipo Drawer Inferior (Bottom Sheet) */
+  /* --- NUEVO LAYOUT: Pantalla Dividida (Split Screen) --- */
   .main-layout {
-    position: relative;
+    flex-direction: column;
     overflow: hidden;
   }
   
-  .explanation-panel {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  .flow-section {
+    flex: 1;
+    min-height: 40vh; /* Garantiza buen espacio para el diagrama */
+  }
+  
+  .explanation-panel,
+  .explanation-panel.collapsed { /* Forzamos a que no importe el estado colapsado por JS */
+    position: relative;
+    left: auto;
+    bottom: auto;
     top: auto;
+    right: auto;
     width: 100%;
-    height: 55%; /* 55% de la pantalla para buena lectura */
+    flex: 0 0 45vh; /* Toma el 45% inferior de la pantalla fijo */
     max-width: none;
-    z-index: 100;
-    box-shadow: 0 -5px 30px rgba(0,0,0,0.6);
+    z-index: 10;
+    box-shadow: none;
     border-left: none;
-    border-top: 1px solid var(--border-color);
-    transform: translateY(0);
+    border-top: 2px solid var(--border-color);
+    transform: none !important; /* Anula deslizamientos */
   }
   
-  .explanation-panel.collapsed {
-    width: 100%;
-    transform: translateY(100%);
-  }
-  
+  /* El interior siempre visible */
+  .explanation-panel .panel-inner,
   .explanation-panel.collapsed .panel-inner {
-    width: 100%;
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  /* Botón más grande para touch */
-  .toggle-panel-btn {
-    width: 60px;
-    height: 30px;
-    left: 50%;
-    top: -30px;
-    margin-left: -30px;
-    font-size: 1rem;
-    border-radius: 8px 8px 0 0;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-bottom: none;
+    width: 100% !important;
+    height: 100%;
+    opacity: 1 !important;
+    pointer-events: auto !important;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: none;
+    flex-direction: column;
   }
   
-  /* Hacemos que la flecha gire dinámicamente */
-  .toggle-panel-btn::before {
-    content: "▶";
-    transform: rotate(90deg); /* Apunta abajo por defecto (cuando está abierto) */
-    transition: transform 0.3s;
+  .panel-content {
+    flex: 1;
+    overflow-y: auto; /* Permite scroll si la explicacion es muy larga */
   }
   
-  .explanation-panel.collapsed .toggle-panel-btn::before {
-    transform: rotate(-90deg); /* Apunta arriba cuando está colapsado */
-  }
-
-  /* Ocultamos el texto original del botón porque usamos ::before */
+  /* Ocultar el botón de colapsar en móviles, ya no se necesita */
   .toggle-panel-btn {
-    color: transparent;
-  }
-  .toggle-panel-btn::before {
-    color: var(--text-main);
-  }
-  .toggle-panel-btn:hover::before {
-    color: #fff;
-  }
-
-  .explanation-panel.collapsed .toggle-panel-btn {
-    left: 50%;
-    top: -30px;
-    margin-left: -30px;
-    border-radius: 8px 8px 0 0;
-    border: 1px solid var(--border-color);
-    border-bottom: none;
-    transform: none;
-  }
-
-  .explanation-panel:not(.collapsed) .toggle-panel-btn {
-    transform: none;
+    display: none !important;
   }
   
-  /* Modal responsive */
+  /* Modal responsive (Código completo) */
   .modal-content {
     width: 95%;
     height: 90vh;
@@ -636,7 +599,7 @@ body {
   .modal-desc-area {
     border-right: none;
     border-bottom: 1px solid var(--border-color);
-    padding: 20px;
+    padding: 15px;
     flex: none;
   }
   
